@@ -84,4 +84,4 @@ MIT
 
 ---
 
-*Toda la gloria a mi Padre, Jesucristo.*
+*Desarrollado por Carlos Vera para la comunidad y toda la gloria a nuestro señor JesusCristo.*
