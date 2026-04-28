@@ -1,6 +1,6 @@
 # extract_spark_emails
 
-Ever wanted to pull your actual contacts out of Spark Mail without touching any API or syncing to the cloud? This does exactly that — reads Spark's local SQLite databases directly on your Mac and exports clean, deduplicated contacts in whatever format you need.
+Reads Spark Mail's local SQLite databases directly — no API, no cloud, no sync. Extracts name, email, and company from every contact that ever landed in your inbox and exports a clean, deduplicated list.
 
 Built by [BravesLab](https://braveslab.com).
 
@@ -8,11 +8,11 @@ Built by [BravesLab](https://braveslab.com).
 
 ## What it does
 
-- Pulls name, email, and company from Spark's local databases
-- Automatically skips spam traps, no-reply addresses, and system accounts
+- Extracts name, email, and company from Spark's local databases
+- Skips spam traps, no-reply addresses, and system accounts automatically
 - Exports to CSV, JSON, or plain TXT
-- Optionally grabs generic addresses like `info@` or `hello@` if you want those too
-- Also picks up Apple Mail and Airmail databases if they're around
+- Use `--include-generic` if you also want addresses like `info@` or `hello@`
+- Detects Apple Mail and Airmail databases if present
 
 ---
 
@@ -22,26 +22,26 @@ Built by [BravesLab](https://braveslab.com).
 - Python 3.7+
 - Spark Mail installed in its default location
 
-No dependencies to install — just run it.
+No dependencies. Just run it.
 
 ---
 
 ## Usage
 
 ```bash
-# Quickest way — drops a CSV in ~/Downloads
+# Default — drops spark_emails.csv in ~/Downloads
 python3 extract_spark_emails.py
 
-# Pick your own output path
+# Custom output path
 python3 extract_spark_emails.py --output ~/Desktop/contacts.csv
 
-# JSON instead of CSV
+# JSON
 python3 extract_spark_emails.py --format json
 
-# Just a list of emails, nothing else
+# Emails only, plain text
 python3 extract_spark_emails.py --format txt
 
-# Include generic addresses (info@, hello@, contact@, etc.)
+# Include generic addresses (info@, hello@, contact@...)
 python3 extract_spark_emails.py --include-generic
 ```
 
@@ -58,13 +58,13 @@ python3 extract_spark_emails.py --include-generic
 
 ## How it works
 
-Spark keeps all your email data locally in SQLite files under:
+Spark stores email data in SQLite files at:
 
 ```
 ~/Library/Group Containers/3L68KQB4HG.group.com.readdle.smartemail/databases/
 ```
 
-The script opens each `.sqlite` file in read-only mode, scans every table for email patterns and `"Name" <email>` pairs, deduplicates everything, filters out the noise, and writes your export.
+The script opens each `.sqlite` file in read-only mode, scans all tables for email patterns and `"Name" <email>` pairs, deduplicates, filters noise, and writes the export.
 
 ---
 
@@ -81,3 +81,7 @@ The script opens each `.sqlite` file in read-only mode, scans every table for em
 ## License
 
 MIT
+
+---
+
+*Toda la gloria a mi Padre, Jesucristo.*
